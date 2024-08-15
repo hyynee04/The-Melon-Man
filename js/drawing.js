@@ -1,5 +1,20 @@
 // Functions responsible for drawing on canvas
 
+let currentScore
+let bestScore = 0
+
+const getBestScore = (cookieString) => {
+	const cookies = cookieString.split(';');
+	for (const cookie of cookies) {
+		const [name, value] = cookie.trim().split('=');
+		if (name == 'bestscore') {
+			return value;
+		}
+	}
+	return null; // Return null if the cookie is not found
+}
+
+
 game.drawTile = function (tileColumn, tileRow, x, y) {
 	game.context.drawImage(
 		game.textures,
@@ -24,20 +39,22 @@ game.drawStructure = function (name, x, y) {
 game.drawPlayer = function () {
 	actualPlayerTile = game.player.animations[game.player.direction][game.player.animationFrameNumber % 4]
 	game.context.drawImage(
-		game.textures,
-		actualPlayerTile.tileColumn * game.options.tileWidth,
-		actualPlayerTile.tileRow * game.options.tileHeight,
-		game.options.tileWidth,
-		game.options.tileHeight,
+		game.character,
+		actualPlayerTile.tileColumn * 16,
+		actualPlayerTile.tileRow * 24,
+		16,
+		24,
 		Math.round(game.options.canvasWidth / 2 - game.options.tileWidth / 2),
-		Math.round(game.options.canvasHeight / 2 - game.options.tileHeight / 2),
+		Math.round(game.options.canvasHeight / 2 - game.options.tileHeight / 2 - 5),
 		game.options.tileWidth,
-		game.options.tileHeight
+		30
 	)
 }
 
 game.redraw = function () {
+	
 	game.drawPending = false
+
 
 	// Draw the background
 	if (game.backgrounds['sky'].loaded) {
@@ -75,23 +92,30 @@ game.redraw = function () {
 
 	// Draw the player
 	game.drawPlayer()
-
-	game.counter.innerHTML = "A game by Karol Swierczek | Controls: A, D / arrows and SPACE | Points: " + Math.round(-game.player.highestY / (3 * game.options.tileHeight)), game.canvas.width - 50, game.canvas.height - 12
+	currentScore = Math.round(-game.player.highestY / (3 * game.options.tileHeight)), game.canvas.width - 50, game.canvas.height - 12
+	game.counter.innerHTML = "A game by Karol Swierczek | Controls: A, D / arrows and SPACE | Points: " + currentScore
 }
 
 game.requestRedraw = function () {
+	bestScore = getBestScore(document.cookie)
+	game.bestScore.innerHTML = 'Best Score: ' + bestScore
 	if (!game.drawPending && !game.isOver) {
 		game.drawPending = true
 		requestAnimationFrame(game.redraw)
 	}
-
-	if(game.isOver) {
+	if (game.isOver) {
 		clearInterval(this.player.fallInterval)
 		game.context.font = "30px superscript"
 		game.context.textAlign = "center"
 		game.context.fillStyle = "black"
 		game.context.fillText("Game over!", game.canvas.width / 2, game.canvas.height / 2)
 		game.context.font = "15px Georgia"
-		game.context.fillText("(Refresh the page to restart)", game.canvas.width / 2, game.canvas.height / 2 + 50)
+		game.context.fillText("(Refresh the page to restart)", game.canvas.width / 2, game.canvas.height / 2 + 50)		
+		
+		console.log(currentScore + ',' + bestScore)
+		if(currentScore > bestScore) {
+			document.cookie = 'bestscore=' + currentScore + '; expires=Thu, 01 Jan 2025 00:00:00 UTC'
+			game.bestScore.innerHTML = 'Best Score: ' + currentScore
+		}
 	}
 }

@@ -35,8 +35,8 @@ game.player = {
 		collidesWithGround: true,
 		animations: {
 			// Describe coordinates of consecutive animation frames of objects in textures
-			left: [{tileColumn: 4, tileRow: 0}, {tileColumn: 5, tileRow: 0}, {tileColumn: 4, tileRow: 0}, {tileColumn: 6, tileRow: 0}],
-			right: [{tileColumn: 9, tileRow: 0}, {tileColumn: 8, tileRow: 0}, {tileColumn: 9, tileRow: 0}, {tileColumn: 7, tileRow: 0}]
+			left: [{tileColumn: 5, tileRow: 6}, {tileColumn: 5, tileRow: 5}, {tileColumn: 5, tileRow: 6}, {tileColumn: 5, tileRow: 7}],
+			right: [{tileColumn: 3, tileRow: 6}, {tileColumn: 3, tileRow: 5}, {tileColumn: 3, tileRow: 6}, {tileColumn: 3, tileRow: 7}]
 		},
 		jump: function (type) {
 			if (!this.isInAir) {
