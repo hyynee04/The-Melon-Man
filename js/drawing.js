@@ -51,7 +51,7 @@ game.drawPlayer = function () {
 	)
 }
 
-game.redraw = function () {
+game.redraw = function (type) {
 	
 	game.drawPending = false
 
@@ -92,8 +92,9 @@ game.redraw = function () {
 
 	// Draw the player
 	game.drawPlayer()
+
 	currentScore = Math.round(-game.player.highestY / (3 * game.options.tileHeight)), game.canvas.width - 50, game.canvas.height - 12
-	game.counter.innerHTML = "A game by Karol Swierczek | Controls: A, D / arrows and SPACE | Points: " + currentScore
+	game.score.innerHTML = "Score: " + currentScore
 }
 
 game.requestRedraw = function () {
@@ -112,7 +113,6 @@ game.requestRedraw = function () {
 		game.context.font = "15px Georgia"
 		game.context.fillText("(Refresh the page to restart)", game.canvas.width / 2, game.canvas.height / 2 + 50)		
 		
-		console.log(currentScore + ',' + bestScore)
 		if(currentScore > bestScore) {
 			document.cookie = 'bestscore=' + currentScore + '; expires=Thu, 01 Jan 2025 00:00:00 UTC'
 			game.bestScore.innerHTML = 'Best Score: ' + currentScore

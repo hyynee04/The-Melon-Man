@@ -3,7 +3,7 @@ var game = {
 	canvas: document.getElementById('canvas'),
 	context: this.canvas.getContext('2d', { alpha: false }),
 	bestScore: document.getElementById('best-score'),
-	counter: document.getElementById('counter'),
+	score: document.getElementById('score'),
 	textures: new Image(),
 	character: new Image(),
 	drawPending: false,

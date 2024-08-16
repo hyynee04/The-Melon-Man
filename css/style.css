@@ -38,27 +38,53 @@ canvas {
   position: relative;
 }
 
-.best-score {
+.counter, .best-score, .score {
   font-family: 'superscript', Arial, sans-serif;
   font-size: 22px;
   color: black;
   position: absolute;
-  top: 0;
-  left: 20px;
   text-align: center;
   z-index: 2;
 }
 
 .counter {
+  bottom: 0;
+  right: 20px;
+}
+
+.best-score {
+  top: 0;
+  left: 20px;
+}
+
+.score {
+  top: 30px;
+  left: 20px;
+}
+
+/* .score-board {
+  top: 50px;
+  left: 20px;
+  min-height: 157.6px;
+}
+
+th, td {
+  width: 130px; 
+  text-align: left;
+}
+
+
+.score-board-container > input {
   font-family: 'superscript', Arial, sans-serif;
   font-size: 22px;
   color: black;
   position: absolute;
-  bottom: 0;
-  right: 20px;
   text-align: center;
   z-index: 2;
-}
+  top: 210px;
+  left: 20px;
+  width: 130px;
+} */
 
 .mobileControls {
   position: absolute;
