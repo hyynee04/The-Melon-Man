@@ -1,7 +1,8 @@
 // Functions responsible for drawing on canvas
 
 let currentScore
-let bestScore = 0
+let bestScore
+document.cookie = 0
 
 const getBestScore = (cookieString) => {
 	const cookies = cookieString.split(';');
@@ -99,7 +100,10 @@ game.redraw = function (type) {
 
 game.requestRedraw = function () {
 	bestScore = getBestScore(document.cookie)
-	game.bestScore.innerHTML = 'Best Score: ' + bestScore
+	if(bestScore != null)
+		game.bestScore.innerHTML = 'Best Score: ' + bestScore
+	else
+		game.bestScore.innerHTML = 'Best Score: 0'
 	if (!game.drawPending && !game.isOver) {
 		game.drawPending = true
 		requestAnimationFrame(game.redraw)
